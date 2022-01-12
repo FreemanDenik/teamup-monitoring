@@ -28,20 +28,26 @@ public class Producer {
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
         KafkaProducer<String, Report> producer = new KafkaProducer<>(properties);
 
-        for (int i = 0; i < 1000; i++) {
-
+        for (int i = 0; i < 100; i++) {
             Map<String, Object> param = new HashMap<>();
             param.put("count", i);
             param.put("isEnable", true);
             param.put("lastUpdate", new Date());
 
+            InitiatorType initiatorType;
+            int initiatorTypeCount = InitiatorType.values().length;
+            initiatorType = switch (i % initiatorTypeCount) {
+                case 1 -> InitiatorType.USER;
+                case 2 -> InitiatorType.MANAGER;
+                case 3 -> InitiatorType.ADMIN;
+                default -> InitiatorType.SYSTEM;
+            };
 
-            Report report = new Report("" + i, Control.AUTO, InitiatorType.values()[i % 4],
-                    InitiatorType.values()[i % 4].name() + "-" + i+i, 100L, new Date(),
-                    Status.SUCCESS, param);
+            Report report = new Report("" + i, Control.AUTO, initiatorType,"name_" +
+                    initiatorType.name(), 100L + i, new Date(), Status.SUCCESS, param);
 
-            ProducerRecord<String, Report> record = new ProducerRecord<>("input-data",
-                    InitiatorType.values()[i % 4].name(), report);
+            ProducerRecord<String, Report> record = new ProducerRecord<>("input-data", initiatorType.name(),
+                    report);
 
             producer.send(record, (metadata, exception) -> {
                 if (exception == null) {
@@ -52,7 +58,7 @@ public class Producer {
                     logger.error("error producing", exception);
                 }
             });
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         }
         producer.flush();
         producer.close();
