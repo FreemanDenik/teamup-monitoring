@@ -37,18 +37,15 @@ public class Producer {
             InitiatorType initiatorType;
             int initiatorTypeCount = InitiatorType.values().length;
             switch (i % initiatorTypeCount) {
-                case 1:
-                    initiatorType = InitiatorType.USER;
+                case 1 : initiatorType = InitiatorType.USER;
                     break;
-                case 2:
-                    initiatorType = InitiatorType.MANAGER;
+                case 2 : initiatorType = InitiatorType.MANAGER;
                     break;
-                case 3:
-                    initiatorType = InitiatorType.ADMIN;
+                case 3 : initiatorType = InitiatorType.ADMIN;
                     break;
-                default:
-                    initiatorType = InitiatorType.SYSTEM;
+                default : initiatorType = InitiatorType.SYSTEM;
             }
+
             Report report = new Report("" + i, Control.AUTO, initiatorType,"name_" +
                     initiatorType.name(), 100L + i, new Date(), Status.SUCCESS, param);
 

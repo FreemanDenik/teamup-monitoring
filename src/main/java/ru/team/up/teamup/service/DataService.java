@@ -1,7 +1,11 @@
 package ru.team.up.teamup.service;
 
 
+import ru.team.up.teamup.entity.Control;
 import ru.team.up.teamup.entity.Report;
+
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -14,5 +18,8 @@ public interface DataService {
      * @param data принимает событие для сохранения в БД
      * @return возвращает сохранённый экземпляр события в БД
      */
+    // По умолчанию save возвращает Report, а для чего?
     Report saveMessage(Report data);
+    List<Report> getAll();
+    List<Report> findByParam(Control control, Date timeAfter, Date timeBefore);
 }

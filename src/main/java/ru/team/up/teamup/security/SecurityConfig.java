@@ -1,47 +1,36 @@
 package ru.team.up.teamup.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessHandler successHandler;
-    private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(SuccessHandler successHandler, UserDetailsService userDetailsService) {
+    public SecurityConfig(SuccessHandler successHandler) {
         this.successHandler = successHandler;
-        this.userDetailsService = userDetailsService;
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .successHandler(successHandler)
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/");
-
-        http.logout()//URL выхода из системы безопасности Spring - только POST. Вы можете поддержать выход из системы без POST, изменив конфигурацию Java
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))//выход из системы гет запрос на /logout
-                .logoutSuccessUrl("/")//успешный выход из системы
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").anonymous()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .and().formLogin().successHandler(successHandler).permitAll()
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
                 .and().csrf().disable();
+    }
+
+    @Bean
+    public PasswordEncoder pass() {
+        return new BCryptPasswordEncoder();
     }
 }
