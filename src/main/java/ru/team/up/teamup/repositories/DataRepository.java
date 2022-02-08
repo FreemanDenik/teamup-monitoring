@@ -15,5 +15,5 @@ import java.util.List;
  */
 @Repository
 public interface DataRepository extends CrudRepository<Report, String> {
-    List<Report> findAllByControlOrTimeGreaterThanEqualOrTimeLessThanEqual(Control control, Date timeAfter, Date timeBefore);
+    List<Report> findAllByControlOrTimeBetween(Control control, Date timeAfter, Date timeBefore);
 }

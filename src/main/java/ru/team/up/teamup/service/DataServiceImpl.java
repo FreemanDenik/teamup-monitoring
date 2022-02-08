@@ -29,7 +29,7 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public List<Report> findByParam(Control control, Date timeAfter, Date timeBefore) {
-        return repository.findAllByControlOrTimeGreaterThanEqualOrTimeLessThanEqual(control, timeAfter, timeBefore);
+        return repository.findAllByControlOrTimeBetween(control, timeAfter, timeBefore);
     }
 
 }
