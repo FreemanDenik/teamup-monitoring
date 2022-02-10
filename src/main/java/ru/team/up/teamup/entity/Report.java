@@ -58,4 +58,6 @@ public class Report {
      * Список дополнительных параметров
      */
     Map<String, Object> parameters;
+
+    private AppModuleNameDto appModuleNameDto;
 }
