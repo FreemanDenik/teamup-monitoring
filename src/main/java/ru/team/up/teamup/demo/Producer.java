@@ -8,17 +8,14 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-import ru.team.up.teamup.entity.Control;
-import ru.team.up.teamup.entity.InitiatorType;
-import ru.team.up.teamup.entity.Report;
-import ru.team.up.teamup.entity.Status;
+import ru.team.up.teamup.entity.*;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-
+@Deprecated
 public class Producer {
     public static void main(String[] args) throws InterruptedException {
         Logger logger = LoggerFactory.getLogger(Producer.class);
@@ -46,7 +43,7 @@ public class Producer {
                 default : initiatorType = InitiatorType.SYSTEM;
             }
 
-            Report report = new Report("" + i, Control.AUTO, initiatorType,"name_" +
+            Report report = new Report("" + i, Control.AUTO, AppModuleName.getAppModule(AppModuleName.class), initiatorType,"name_" +
                     initiatorType.name(), 100L + i, new Date(), Status.SUCCESS, param);
 
             ProducerRecord<String, Report> record = new ProducerRecord<>("input-data", initiatorType.name(),

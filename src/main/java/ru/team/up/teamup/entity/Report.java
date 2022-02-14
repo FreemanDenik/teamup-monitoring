@@ -1,6 +1,6 @@
 package ru.team.up.teamup.entity;
 
-
+import com.querydsl.core.annotations.QueryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * Сущность событие для Кафки
  */
+@QueryEntity
 @Data
 @Document
 @AllArgsConstructor
@@ -28,6 +29,11 @@ public class Report {
      * Тип события (Ручное, Автоматическое)
      */
     Control control;
+
+    /**
+     * Модуль из которого отправлено событие
+     */
+    AppModuleName appModuleName;
 
     /**
      * Инициатор события (Система, Пользователь, Менеджер, Администратор)
@@ -58,6 +64,4 @@ public class Report {
      * Список дополнительных параметров
      */
     Map<String, Object> parameters;
-
-    private AppModuleNameDto appModuleNameDto;
 }
