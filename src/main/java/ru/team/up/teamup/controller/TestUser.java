@@ -7,6 +7,7 @@ import ru.team.up.teamup.service.UserDetailsImpl;
 
 import javax.annotation.PostConstruct;
 
+@Deprecated
 @Component
 public class TestUser {
     private final UserDetailsImpl userDetails;

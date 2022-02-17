@@ -11,11 +11,15 @@
         <div class="nav">
                 <FORM class="col-auto" method="get" th:action="@{/admin/find}">
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-start mb-md-0">
-                        <li class="col-auto">
-                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="control">
-                            <option selected value="">Control type</option>
-                            <option value="AUTO">Auto</option>
-                            <option value="MANUAL">Manual</option></select></li>
+                        <li class="col-auto me-1 ms-1">
+                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="moduleName">
+                            <option selected value="">Module</option>
+                                <option th:each="module:${modules}" th:text="${module}"></option></select></li>
+
+                        <li class="col-auto me-1 ms-1">
+                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="initiatorType">
+                                <option selected value="">Initiator</option>
+                                <option th:each="in:${initiator}" th:text="${in}"></option></select></li>
 
                         <li class="col-auto me-1 ms-1">
                             <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="date" id="start" name="timeAfter" ></li>
@@ -28,7 +32,7 @@
                     </ul>
                 </FORM>
             <div class="col text-end">
-                <button type="button" class="btn btn-sm btn-outline-danger" th:href="@{/logout}">Logout</button>
+                <a type="button" class="btn btn-sm btn-outline-danger" th:href="@{/admin/logout}">Logout</a>
             </div>
         </div>
 
@@ -40,6 +44,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Control</th>
+                    <th>Module</th>
                     <th>Initiator Type</th>
                     <th>Initiator Name</th>
                     <th>Initiator ID</th>
@@ -51,6 +56,7 @@
                     <tr>
                         <td th:text="${rep.id}"></td>
                         <td th:text="${rep.control}"></td>
+                        <td th:text="${rep.appModuleName}"></td>
                         <td th:text="${rep.initiatorType}"></td>
                         <td th:text="${rep.initiatorName}"></td>
                         <td th:text="${rep.initiatorId}"></td>

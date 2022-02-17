@@ -1,19 +1,23 @@
 package ru.team.up.teamup.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import ru.team.up.teamup.entity.Control;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import ru.team.up.teamup.entity.AppModuleName;
+import ru.team.up.teamup.entity.InitiatorType;
 import ru.team.up.teamup.entity.Report;
 import ru.team.up.teamup.service.DataService;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class MonitoringController {
+    Logger logger = LoggerFactory.getLogger(MonitoringController.class);
 
     private final DataService dataService;
 
@@ -24,35 +28,28 @@ public class MonitoringController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("reports", dataService.getAll());
+        model.addAttribute("modules", AppModuleName.values());
+        model.addAttribute("initiator", InitiatorType.values());
         return "reportPage";
     }
 
     @RequestMapping( "/find")
     public String find(Model model,
-                       Control control,
+                       AppModuleName moduleName,
+                       InitiatorType initiatorType,
                        String timeAfter,
-                       String timeBefore) {
+                       String timeBefore) throws ParseException {
+        logger.debug("Запрос поиска Событий");
 
-        List<Report> reports = null;
+        List<Report> reports = dataService.findByParam(moduleName, initiatorType, timeAfter, timeBefore);
+        logger.debug("Результаты поиска : {}", reports);
 
-        if (control != null ||  !timeAfter.isEmpty() || !timeBefore.isEmpty()) {
-            Date dateA = null;
-            Date dateB = null;
-            try {
-                dateA = new SimpleDateFormat("yyyy-MM-dd").parse(timeAfter);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                dateB = new SimpleDateFormat("yyyy-MM-dd").parse(timeBefore);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            reports = dataService.findByParam(control, dateA, dateB);
-        }
-
+        model.addAttribute("initiator", InitiatorType.values());
+        model.addAttribute("modules", AppModuleName.values());
         model.addAttribute("reports", reports);
         return "reportPage";
     }
+
+
 
 }

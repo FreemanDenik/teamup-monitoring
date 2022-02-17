@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
+@Deprecated
 public class Consumer {
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(Consumer.class);
