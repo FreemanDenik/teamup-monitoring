@@ -1,8 +1,8 @@
 package ru.team.up.teamup.service;
 
 
-import ru.team.up.teamup.entity.AppModuleName;
-import ru.team.up.teamup.entity.InitiatorType;
+import ru.team.up.dto.AppModuleNameDto;
+import ru.team.up.dto.InitiatorTypeDto;
 import ru.team.up.teamup.entity.Report;
 
 import java.text.ParseException;
@@ -21,5 +21,5 @@ public interface DataService {
     // По умолчанию save возвращает Report, а для чего?
     void saveMessage(Report data);
     List<Report> getAll();
-    List<Report> findByParam(AppModuleName moduleName, InitiatorType initiatorType, String timeAfter, String timeBefore) throws ParseException;
+    List<Report> findByParam(AppModuleNameDto moduleName, InitiatorTypeDto initiatorType, String timeAfter, String timeBefore) throws ParseException;
 }
