@@ -43,6 +43,7 @@
             <TABLE class="table table-striped">
                 <tr>
                     <th>ID</th>
+                    <th>Report Name</th>
                     <th>Control</th>
                     <th>Module</th>
                     <th>Initiator Type</th>
@@ -55,13 +56,14 @@
                 <th:block th:each="rep: ${reports}">
                     <tr>
                         <td th:text="${rep.id}"></td>
+                        <td th:text="${rep.reportName}"></td>
                         <td th:text="${rep.control}"></td>
                         <td th:text="${rep.appModuleName}"></td>
                         <td th:text="${rep.initiatorType}"></td>
                         <td th:text="${rep.initiatorName}"></td>
                         <td th:text="${rep.initiatorId}"></td>
                         <td th:text="${rep.time}"></td>
-                        <td th:text="${rep.status}"></td>
+                        <td th:text="${rep.getReportStatus}"></td>
                         <td th:text="${rep.parameters}"></td>
                     </tr>
                 </th:block>

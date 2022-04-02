@@ -8,7 +8,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import ru.team.up.teamup.entity.Report;
+import ru.team.up.dto.ReportDto;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -26,17 +26,14 @@ public class Consumer {
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "group-test2");
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
-        KafkaConsumer<String, Report> consumer = new KafkaConsumer<>(properties);
+        KafkaConsumer<String, ReportDto> consumer = new KafkaConsumer<>(properties);
         consumer.subscribe(Collections.singleton("input-data"));
 
         while (true) {
-            ConsumerRecords<String, Report> records = consumer.poll(Duration.ofMillis(300));
-            for (ConsumerRecord<String, Report> record : records) {
+            ConsumerRecords<String, ReportDto> records = consumer.poll(Duration.ofMillis(300));
+            for (ConsumerRecord<String, ReportDto> record : records) {
                 logger.info("key: " + record.key() + " value: " + record.value() + " partition: " +
                         record.partition() + " offset: " + record.offset());
-
-                Report report = record.value();
-                System.out.println(report);
             }
         }
     }

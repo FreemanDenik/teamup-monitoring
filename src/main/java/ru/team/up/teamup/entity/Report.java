@@ -26,6 +26,11 @@ public class Report {
     String id;
 
     /**
+     * Название события
+     */
+    String reportName;
+
+    /**
      * Тип события (Ручное, Автоматическое)
      */
     Control control;
@@ -58,7 +63,7 @@ public class Report {
     /**
      * Статус события (Успешно, Неуспешно)
      */
-    Status status;
+    ReportStatus reportStatus;
 
     /**
      * Список дополнительных параметров

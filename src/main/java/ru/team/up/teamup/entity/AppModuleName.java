@@ -7,21 +7,25 @@ import java.util.Random;
  * Имена модулей приложения, которые будут принимать парамтеры от системы SUP.
  */
 
-@Deprecated
 public enum AppModuleName {
-    TEAMUP_CORE_AUTH,
+    TEAMUP_APP,
+    TEAMUP_AUTH,
     TEAMUP_CORE,
     TEAMUP_DTO,
     TEAMUP_EXTERNAL,
-    TEAMUP_CORE_INPUT,
+    TEAMUP_INPUT,
     TEAMUP_KAFKA,
-    TEAMUP_MONITORING;
+    TEAMUP_MONITORING,
+    TEAMUP_MODERATOR,
+    TEAMUP_SUP
 
-    // Сделано для теста
+
+/*
+    // Сделано для теста (demo/Producer) пусть пока останется
     private static Random random = new Random();
-
 
     public static <T extends Enum> T getAppModule(Class<T> clazz) {
         return clazz.getEnumConstants()[random.nextInt(clazz.getEnumConstants().length)];
     }
+*/
 }
