@@ -3,8 +3,8 @@ package ru.team.up.teamup.service;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import ru.team.up.teamup.entity.AppModuleName;
-import ru.team.up.teamup.entity.InitiatorType;
+import ru.team.up.dto.AppModuleNameDto;
+import ru.team.up.dto.InitiatorTypeDto;
 import ru.team.up.teamup.entity.QReport;
 import ru.team.up.teamup.entity.Report;
 import ru.team.up.teamup.repositories.DataRepository;
@@ -35,8 +35,8 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public List<Report> findByParam(@Nullable AppModuleName moduleName,
-                                    @Nullable InitiatorType initiatorType,
+    public List<Report> findByParam(@Nullable AppModuleNameDto moduleName,
+                                    @Nullable InitiatorTypeDto initiatorType,
                                     @Nullable String timeAfter,
                                     @Nullable String timeBefore) {
         QReport report = QReport.report;

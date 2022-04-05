@@ -6,6 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.team.up.dto.AppModuleNameDto;
+import ru.team.up.dto.ControlDto;
+import ru.team.up.dto.InitiatorTypeDto;
+import ru.team.up.dto.ReportStatusDto;
 
 import java.util.Date;
 import java.util.Map;
@@ -33,17 +37,17 @@ public class Report {
     /**
      * Тип события (Ручное, Автоматическое)
      */
-    Control control;
+    ControlDto control;
 
     /**
      * Модуль из которого отправлено событие
      */
-    AppModuleName appModuleName;
+    AppModuleNameDto appModuleName;
 
     /**
      * Инициатор события (Система, Пользователь, Менеджер, Администратор)
      */
-    InitiatorType initiatorType;
+    InitiatorTypeDto initiatorType;
 
     /**
      * Имя инициатора события
@@ -63,7 +67,7 @@ public class Report {
     /**
      * Статус события (Успешно, Неуспешно)
      */
-    ReportStatus reportStatus;
+    ReportStatusDto reportStatus;
 
     /**
      * Список дополнительных параметров

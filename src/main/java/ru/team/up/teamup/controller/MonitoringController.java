@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.team.up.teamup.entity.AppModuleName;
-import ru.team.up.teamup.entity.InitiatorType;
+import ru.team.up.dto.AppModuleNameDto;
+import ru.team.up.dto.InitiatorTypeDto;
 import ru.team.up.teamup.entity.Report;
 import ru.team.up.teamup.service.DataService;
 
@@ -28,15 +28,15 @@ public class MonitoringController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("reports", dataService.getAll());
-        model.addAttribute("modules", AppModuleName.values());
-        model.addAttribute("initiator", InitiatorType.values());
+        model.addAttribute("modules", AppModuleNameDto.values());
+        model.addAttribute("initiator", InitiatorTypeDto.values());
         return "reportPage";
     }
 
     @RequestMapping( "/find")
     public String find(Model model,
-                       AppModuleName moduleName,
-                       InitiatorType initiatorType,
+                       AppModuleNameDto moduleName,
+                       InitiatorTypeDto initiatorType,
                        String timeAfter,
                        String timeBefore) throws ParseException {
         logger.debug("Запрос поиска Событий");
@@ -44,8 +44,8 @@ public class MonitoringController {
         List<Report> reports = dataService.findByParam(moduleName, initiatorType, timeAfter, timeBefore);
         logger.debug("Результаты поиска : {}", reports);
 
-        model.addAttribute("initiator", InitiatorType.values());
-        model.addAttribute("modules", AppModuleName.values());
+        model.addAttribute("initiator", InitiatorTypeDto.values());
+        model.addAttribute("modules", AppModuleNameDto.values());
         model.addAttribute("reports", reports);
         return "reportPage";
     }
