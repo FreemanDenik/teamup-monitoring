@@ -2,6 +2,7 @@ package ru.team.up.teamup.entity;
 
 import com.querydsl.core.annotations.QueryEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * Сущность событие для Кафки
  */
+@Builder
 @QueryEntity
 @Data
 @Document
