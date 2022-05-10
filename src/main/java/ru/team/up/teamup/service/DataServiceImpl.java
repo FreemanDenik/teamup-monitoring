@@ -1,6 +1,7 @@
 package ru.team.up.teamup.service;
 
 import com.querydsl.core.BooleanBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import ru.team.up.dto.AppModuleNameDto;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class DataServiceImpl implements DataService {
 
     private final DataRepository repository;
@@ -64,6 +66,8 @@ public class DataServiceImpl implements DataService {
         } else if (!timeBefore.isEmpty()) {
             predicate.and(report.time.before(to));
         }
+
+        log.debug("Сформированный в findByParam предикат {}", predicate);
          return (List<Report>) repository.findAll(predicate);
     }
 
