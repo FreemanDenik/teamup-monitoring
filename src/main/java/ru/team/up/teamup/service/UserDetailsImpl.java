@@ -21,7 +21,14 @@ public class UserDetailsImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return adminRepository.findByUsername(username);
+
+        UserDetails userDetails = adminRepository.findByUsername(username);
+
+        if (userDetails == null){
+            throw new UsernameNotFoundException("Пользователь с логином <"+username+"> не найден.");
+        }
+
+        return userDetails;
     }
 
     public void save(Admin admin) {
