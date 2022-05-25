@@ -18,12 +18,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DisplayName("Тест страницы логина")
 class LoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Nested
+    @DisplayName("Вложенные тесты")
     class NestedTestClass {
 
         @Autowired
