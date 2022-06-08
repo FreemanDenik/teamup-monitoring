@@ -56,7 +56,9 @@ public class Producer {
             Report report = new Report("" + i, "testName" + i, ControlDto.AUTO, AppModuleNameDto.getAppModuleName(), initiatorType, "name_" +
                     initiatorType.name(), 100L + i, new Date(), ReportStatusDto.SUCCESS, param);
 
-            ProducerRecord<String, Report> record = new ProducerRecord<>("input-data", initiatorType.name(),
+
+
+             ProducerRecord<String, Report> record = new ProducerRecord<>("input-data", initiatorType.name(),
                     report);
 
             producer.send(record, (metadata, exception) -> {
