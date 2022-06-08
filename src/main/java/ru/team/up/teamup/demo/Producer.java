@@ -10,10 +10,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-import ru.team.up.dto.AppModuleNameDto;
-import ru.team.up.dto.ControlDto;
-import ru.team.up.dto.InitiatorTypeDto;
-import ru.team.up.dto.ReportStatusDto;
+import ru.team.up.dto.*;
 import ru.team.up.teamup.entity.*;
 
 import java.util.Date;
@@ -32,10 +29,20 @@ public class Producer {
         KafkaProducer<String, Report> producer = new KafkaProducer<>(properties);
 
         for (int i = 0; i < 100; i++) {
-            Map<String, Object> param = new HashMap<>();
+/*            Map<String, Object> param = new HashMap<>();
             param.put("count", i);
             param.put("isEnable", true);
-            param.put("lastUpdate", new Date());
+            param.put("lastUpdate", new Date());*/
+
+            Map<String, ParametersDto> param = new HashMap<>();
+            Date dataLastUpdate = new Date();
+            ParametersDto parametersCount = new ParametersDto("порядковый номер", i);
+            ParametersDto parametersEnable = new ParametersDto("включен", true);
+            ParametersDto parametersLastUpdate = new ParametersDto("время последнего обновления", dataLastUpdate.toString());
+
+            param.put("count", parametersCount);
+            param.put("isEnable", parametersEnable);
+            param.put("lastUpdate", parametersLastUpdate);
 
             InitiatorTypeDto initiatorType;
             int initiatorTypeCount = InitiatorTypeDto.values().length;
