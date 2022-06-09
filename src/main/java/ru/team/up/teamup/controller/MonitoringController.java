@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.team.up.dto.AppModuleNameDto;
 import ru.team.up.dto.InitiatorTypeDto;
+import ru.team.up.dto.ParametersDto;
 import ru.team.up.teamup.entity.Report;
 import ru.team.up.teamup.service.DataService;
 
