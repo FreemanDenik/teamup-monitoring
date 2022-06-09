@@ -36,9 +36,21 @@ public class Producer {
 
             Map<String, ParametersDto> param = new HashMap<>();
             Date dataLastUpdate = new Date();
-            ParametersDto parametersCount = new ParametersDto("порядковый номер", i);
-            ParametersDto parametersEnable = new ParametersDto("включен", true);
-            ParametersDto parametersLastUpdate = new ParametersDto("время последнего обновления", dataLastUpdate.toString());
+
+            ParametersDto parametersCount = ParametersDto.builder()
+                    .description("порядковый номер")
+                    .value(i)
+                    .build();
+
+            ParametersDto parametersEnable = ParametersDto.builder()
+                    .description("включен")
+                    .value(true)
+                    .build();
+
+            ParametersDto parametersLastUpdate = ParametersDto.builder()
+                    .description("время последнего обновления")
+                    .value(dataLastUpdate.toString())
+                    .build();
 
             param.put("count", parametersCount);
             param.put("isEnable", parametersEnable);
