@@ -16,6 +16,7 @@ import ru.team.up.teamup.entity.Report;
 import ru.team.up.teamup.repositories.DataRepository;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -91,7 +92,10 @@ class DataServiceTest {
                         .initiatorType(InitiatorTypeDto.USER)
                         .initiatorName("user")
                         .time(new Date())
-                        .parameters(null)
+                        .parameters(new HashMap<>(){{
+                            put("count", "22");
+                            put("two", "second");
+                        }})
                         .build(),
                 Report.builder()
                         .reportName("Событие №2")
@@ -102,7 +106,10 @@ class DataServiceTest {
                         .initiatorType(InitiatorTypeDto.USER)
                         .initiatorName("user2")
                         .time(new Date())
-                        .parameters(null)
+                        .parameters(new HashMap<>(){{
+                            put("count", "22");
+                            put("two", "second");
+                        }})
                         .build());
 
         given(dataTestRepository.findAll(any(BooleanBuilder.class)))
@@ -113,7 +120,8 @@ class DataServiceTest {
                 AppModuleNameDto.TEAMUP_MONITORING,
                 InitiatorTypeDto.USER,
                 "2022-05-09",
-                "2022-05-11"
+                "2022-05-11",
+                "count", "22"
         );
 
         //then

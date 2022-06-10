@@ -63,8 +63,8 @@ public class KafkaTests {
         kafkaTestProducer = kafkaTestProducer();
         kafkaTestConsumer = kafkaTestConsumer();
 
-        Map<String, Object> monitoringParameters = new HashMap<>();
-        monitoringParameters.put("Количество всех мероприятий ", 4);
+        Map<String, String> monitoringParameters = new HashMap<>();
+        monitoringParameters.put("Количество всех мероприятий ", "4");
 
         reportTest = Report.builder()
                 .reportName("Событие №1")

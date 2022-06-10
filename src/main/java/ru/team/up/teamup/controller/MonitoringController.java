@@ -38,10 +38,12 @@ public class MonitoringController {
                        AppModuleNameDto moduleName,
                        InitiatorTypeDto initiatorType,
                        String timeAfter,
-                       String timeBefore) throws ParseException {
+                       String timeBefore,
+                       String paramKey,
+                       String paramValue) throws ParseException {
         logger.debug("Запрос поиска Событий");
 
-        List<Report> reports = dataService.findByParam(moduleName, initiatorType, timeAfter, timeBefore);
+        List<Report> reports = dataService.findByParam(moduleName, initiatorType, timeAfter, timeBefore, paramKey, paramValue);
         logger.debug("Результаты поиска : {}", reports);
 
         model.addAttribute("initiator", InitiatorTypeDto.values());

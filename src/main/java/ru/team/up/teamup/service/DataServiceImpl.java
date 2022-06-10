@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -40,7 +41,9 @@ public class DataServiceImpl implements DataService {
     public List<Report> findByParam(@Nullable AppModuleNameDto moduleName,
                                     @Nullable InitiatorTypeDto initiatorType,
                                     @Nullable String timeAfter,
-                                    @Nullable String timeBefore) {
+                                    @Nullable String timeBefore,
+                                    @Nullable String paramKey,
+                                    @Nullable String paramValue) {
         QReport report = QReport.report;
         BooleanBuilder predicate = new BooleanBuilder();
         Date from = null;
@@ -58,6 +61,7 @@ public class DataServiceImpl implements DataService {
 
         Optional.ofNullable(moduleName).map(report.appModuleName::eq).map(predicate::and);
         Optional.ofNullable(initiatorType).map(report.initiatorType::eq).map(predicate::and);
+        Optional.ofNullable(paramKey).map(right -> report.parameters.containsKey(paramKey)).map(predicate::and);
 
         if (!timeAfter.isEmpty() && !timeBefore.isEmpty()) {
             predicate.and(report.time.between(from, to));
@@ -68,7 +72,13 @@ public class DataServiceImpl implements DataService {
         }
 
         log.debug("Сформированный в findByParam предикат {}", predicate);
-         return (List<Report>) repository.findAll(predicate);
+        List<Report> all = (List<Report>) repository.findAll(predicate);
+
+        if (!paramValue.isEmpty()) {
+            return all.stream().filter(x -> x.getParameters().containsValue(paramValue)).collect(Collectors.toList());
+        }
+
+        return all;
     }
 
 }
