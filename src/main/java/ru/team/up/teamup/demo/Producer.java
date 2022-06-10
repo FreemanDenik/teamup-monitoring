@@ -29,26 +29,21 @@ public class Producer {
         KafkaProducer<String, Report> producer = new KafkaProducer<>(properties);
 
         for (int i = 0; i < 100; i++) {
-/*            Map<String, Object> param = new HashMap<>();
-            param.put("count", i);
-            param.put("isEnable", true);
-            param.put("lastUpdate", new Date());*/
-
             Map<String, ParametersDto> param = new HashMap<>();
             Date dataLastUpdate = new Date();
 
             ParametersDto parametersCount = ParametersDto.builder()
-                    .description("порядковый номер")
+                    .description("порядковый номер: ")
                     .value(i)
                     .build();
 
             ParametersDto parametersEnable = ParametersDto.builder()
-                    .description("включен")
+                    .description("включен: ")
                     .value(true)
                     .build();
 
             ParametersDto parametersLastUpdate = ParametersDto.builder()
-                    .description("время последнего обновления")
+                    .description("время последнего обновления: ")
                     .value(dataLastUpdate.toString())
                     .build();
 
