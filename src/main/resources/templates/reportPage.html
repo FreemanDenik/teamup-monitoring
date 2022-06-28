@@ -64,7 +64,7 @@
                         <td th:text="${rep.initiatorId}"></td>
                         <td th:text="${rep.time}"></td>
                         <td th:text="${rep.getReportStatus}"></td>
-                        <td th:text="${rep.parameters}"></td>
+                        <td th:text="${rep.parameters.values()}"></td>
                     </tr>
                 </th:block>
             </TABLE>

@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import ru.team.up.dto.AppModuleNameDto;
-import ru.team.up.dto.ControlDto;
-import ru.team.up.dto.InitiatorTypeDto;
-import ru.team.up.dto.ReportStatusDto;
+import ru.team.up.dto.*;
 
 import java.util.Date;
 import java.util.Map;
@@ -74,5 +71,5 @@ public class Report {
     /**
      * Список дополнительных параметров
      */
-    Map<String, Object> parameters;
+    Map<String, ParametersDto> parameters;
 }
