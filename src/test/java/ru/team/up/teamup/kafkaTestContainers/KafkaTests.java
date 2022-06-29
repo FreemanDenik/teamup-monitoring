@@ -19,10 +19,7 @@ import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-import ru.team.up.dto.AppModuleNameDto;
-import ru.team.up.dto.ControlDto;
-import ru.team.up.dto.InitiatorTypeDto;
-import ru.team.up.dto.ReportStatusDto;
+import ru.team.up.dto.*;
 import ru.team.up.teamup.entity.Report;
 
 import java.time.Duration;
@@ -63,8 +60,11 @@ public class KafkaTests {
         kafkaTestProducer = kafkaTestProducer();
         kafkaTestConsumer = kafkaTestConsumer();
 
-        Map<String, Object> monitoringParameters = new HashMap<>();
-        monitoringParameters.put("Количество всех мероприятий ", 4);
+        Map<String, ParametersDto> monitoringParameters = new HashMap<>();
+        monitoringParameters.put("count", ParametersDto.builder()
+                .description("Кол-во мероприятий")
+                .value(10)
+                .build());
 
         reportTest = Report.builder()
                 .reportName("Событие №1")
