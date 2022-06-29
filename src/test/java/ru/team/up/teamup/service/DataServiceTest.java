@@ -8,10 +8,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.team.up.dto.AppModuleNameDto;
-import ru.team.up.dto.ControlDto;
-import ru.team.up.dto.InitiatorTypeDto;
-import ru.team.up.dto.ReportStatusDto;
+import ru.team.up.dto.*;
 import ru.team.up.teamup.entity.Report;
 import ru.team.up.teamup.repositories.DataRepository;
 
@@ -93,8 +90,14 @@ class DataServiceTest {
                         .initiatorName("user")
                         .time(new Date())
                         .parameters(new HashMap<>(){{
-                            put("count", "22");
-                            put("two", "second");
+                            put("count", ParametersDto.builder()
+                                    .description("Кол-во")
+                                    .value("22")
+                                    .build());
+                            put("two",ParametersDto.builder()
+                                    .description("Тест")
+                                    .value("second")
+                                    .build());
                         }})
                         .build(),
                 Report.builder()
@@ -107,8 +110,14 @@ class DataServiceTest {
                         .initiatorName("user2")
                         .time(new Date())
                         .parameters(new HashMap<>(){{
-                            put("count", "22");
-                            put("two", "second");
+                            put("count", ParametersDto.builder()
+                                    .description("Кол-во")
+                                    .value("22")
+                                    .build());
+                            put("two",ParametersDto.builder()
+                                    .description("Тест")
+                                    .value("second")
+                                    .build());
                         }})
                         .build());
 

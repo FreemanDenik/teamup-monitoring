@@ -18,10 +18,7 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.util.concurrent.ListenableFutureCallback;
-import ru.team.up.dto.AppModuleNameDto;
-import ru.team.up.dto.ControlDto;
-import ru.team.up.dto.InitiatorTypeDto;
-import ru.team.up.dto.ReportStatusDto;
+import ru.team.up.dto.*;
 import ru.team.up.teamup.entity.Report;
 import ru.team.up.teamup.service.DataService;
 import ru.team.up.teamup.tasks.MessageListener;
@@ -73,8 +70,11 @@ public class EmbeddedKafkaTest {
 
         //given
         //создаём тестовый отчёт
-        Map<String, String> monitoringParameters = new HashMap<>();
-        monitoringParameters.put("Количество всех мероприятий ", "4");
+        Map<String, ParametersDto> monitoringParameters = new HashMap<>();
+        monitoringParameters.put("count", ParametersDto.builder()
+                        .description("Кол-во мероприятий")
+                        .value(10)
+                .build());
 
         reportTest = Report.builder()
                 .reportName("Событие №1")
