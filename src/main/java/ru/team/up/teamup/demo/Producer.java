@@ -10,13 +10,13 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-import ru.team.up.dto.AppModuleNameDto;
-import ru.team.up.dto.ControlDto;
-import ru.team.up.dto.InitiatorTypeDto;
-import ru.team.up.dto.ReportStatusDto;
+import ru.team.up.dto.*;
 import ru.team.up.teamup.entity.*;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 @Deprecated
 public class Producer {
@@ -29,10 +29,27 @@ public class Producer {
         KafkaProducer<String, Report> producer = new KafkaProducer<>(properties);
 
         for (int i = 0; i < 100; i++) {
-            Map<String, String> param = new HashMap<>();
-            param.put("count", String.valueOf(i));
-            param.put("isEnable", String.valueOf(true));
-            param.put("lastUpdate", String.valueOf(new Date()));
+            Map<String, ParametersDto> param = new HashMap<>();
+            Date dataLastUpdate = new Date();
+
+            ParametersDto parametersCount = ParametersDto.builder()
+                    .description("порядковый номер: ")
+                    .value(i)
+                    .build();
+
+            ParametersDto parametersEnable = ParametersDto.builder()
+                    .description("включен: ")
+                    .value(true)
+                    .build();
+
+            ParametersDto parametersLastUpdate = ParametersDto.builder()
+                    .description("время последнего обновления: ")
+                    .value(dataLastUpdate.toString())
+                    .build();
+
+            param.put("count", parametersCount);
+            param.put("isEnable", parametersEnable);
+            param.put("lastUpdate", parametersLastUpdate);
 
             InitiatorTypeDto initiatorType;
             int initiatorTypeCount = InitiatorTypeDto.values().length;
@@ -50,10 +67,12 @@ public class Producer {
                     initiatorType = InitiatorTypeDto.SYSTEM;
             }
 
-            Report report = new Report("" + i, "report_Name_" + i, ControlDto.AUTO, AppModuleNameDto.getRandomAppModuleNameDto(), initiatorType, "name_" +
+            Report report = new Report("" + i, "testName" + i, ControlDto.AUTO, AppModuleNameDto.getAppModuleName(), initiatorType, "name_" +
                     initiatorType.name(), 100L + i, new Date(), ReportStatusDto.SUCCESS, param);
 
-            ProducerRecord<String, Report> record = new ProducerRecord<>("input-data", initiatorType.name(),
+
+
+             ProducerRecord<String, Report> record = new ProducerRecord<>("input-data", initiatorType.name(),
                     report);
 
             producer.send(record, (metadata, exception) -> {
