@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.team.up.dto.AppModuleNameDto;
 import ru.team.up.dto.InitiatorTypeDto;
-import ru.team.up.dto.ParametersDto;
 import ru.team.up.teamup.entity.Report;
+import ru.team.up.teamup.models.FindViewModel;
 import ru.team.up.teamup.service.DataService;
 
 import java.text.ParseException;
@@ -31,11 +31,14 @@ public class MonitoringController {
         model.addAttribute("reports", dataService.getAll());
         model.addAttribute("modules", AppModuleNameDto.values());
         model.addAttribute("initiator", InitiatorTypeDto.values());
+
+        model.addAttribute("findViewModel", new FindViewModel());
         return "reportPage";
     }
 
     @RequestMapping( "/find")
     public String find(Model model,
+                       FindViewModel findViewModel,
                        AppModuleNameDto moduleName,
                        InitiatorTypeDto initiatorType,
                        String timeAfter,
@@ -50,6 +53,8 @@ public class MonitoringController {
         model.addAttribute("initiator", InitiatorTypeDto.values());
         model.addAttribute("modules", AppModuleNameDto.values());
         model.addAttribute("reports", reports);
+
+        model.addAttribute("findViewModel", findViewModel);
         return "reportPage";
     }
 
