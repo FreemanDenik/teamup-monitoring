@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Delete param</title>
+</head>
+<body>
+
+<div th:fragment="DeleteModal">
+    <div class="modal fade" th:id="${'deleteParam' + parameter.id}" tabindex="-1" aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete user</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body text-center fw-bold mx-auto" style="width: 300px">
+                    <form th:method="GET" th:action="@{/admin/delete/{id}(id=${parameter.id})}"
+                          th:id="${'deleteForm' + parameter.id}">
+                        <input th:type="hidden" th:value="${parameter.id}" th:name="id"/>
+
+                        <label for="Id" class="form-label">ID</label>
+                        <input type="number" class="form-control" th:value="${parameter.id}" id="Id" disabled readonly>
+
+                        <label for="parameterName" class="form-label">Parameter Name</label>
+                        <input type="text" class="form-control" th:value="${parameter.parameterName}" id="parameterName"
+                               th:name="parameterName" disabled readonly>
+
+                        <label for="parameterType" class="form-label">Parameter Type</label>
+                        <select id="parameterType" class="form-select" th:value="${parameter.parameterType}" th:size="1"
+                                th:name="parameterType" disabled>
+                            <option th:each="type : ${parameter.parameterType}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+
+                        <label for="systemName" class="form-label">System Name</label>
+                        <select id="systemName" class="form-select" th:value="${parameter.systemName}" th:size="1"
+                                th:name="systemName" disabled>
+                            <option th:each="system : ${parameter.systemName}"
+                                    th:value="${system}"
+                                    th:text="${system}">
+                            </option>
+                        </select>
+
+                        <label for="parameterValue" class="form-label">Parameter Value</label>
+                        <input type="text" class="form-control" th:value="${parameter.parameterValue}" id="parameterValue"
+                               th:name="parameterValue" disabled readonly>
+
+                        <label for="InUse" class="form-label">In Use</label>
+                        <input type="text" class="form-control" th:value="${parameter.inUse}" id="InUse" disabled readonly>
+
+                        <label for="LastUsedDate" class="form-label">Last UsedDate</label>
+                        <input type="date" class="form-control" th:value="${parameter.lastUsedDate}" id="LastUsedDate" disabled readonly>
+
+                    </form>
+                </div>
+                <div class="modal-footer ">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button th:type="submit" th:form="${'deleteForm' + parameter.id}" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+</html>

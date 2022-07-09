@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="java" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:url value="/j_spring_security_check" var="loginUrl"/>
+<div class="auth-container row">
+    <div class="col-4"></div>
+    <form method="post" action="/login" class=" row col">
+        <h1></h1>
+        <div>
+            <h4>Войти в аккаунт</h4>
+        </div>
+
+            <input type="text" class="form-control" required autofocus name="auth_email" placeholder="E-mail">
+            <input type="password" class="form-control" required name="auth_password" placeholder="Password">
+        <h5></h5>
+                <button type="submit" class="btn btn-primary col ">Войти</button>
+        <h5></h5>
+                <a type="button" th:href="@{/registration}" class="btn btn-primary">Регистрация</a>
+        <h5></h5>
+        <a type="button"  th:href="@{/oauth2/authorization/google}" class="btn btn-primary">Авторизация с помощью Google</a>
+    </form>
+    <div class="col-4"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
