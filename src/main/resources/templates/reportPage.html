@@ -12,26 +12,28 @@
                 <FORM class="col-auto" method="get" th:action="@{/admin/find}">
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-start mb-md-0">
                         <li class="col-auto me-1 ms-1">
-                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="moduleName">
-                            <option selected value="">Module</option>
-                                <option th:each="module:${modules}" th:text="${module}"></option></select></li>
+                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="moduleName" >
+                                <option selected value="">Module</option>
+                                <option th:each="module:${modules}" th:text="${module}" th:selected="${module==findViewModel.moduleName}"></option>
+                            </select>
+                        </li>
 
                         <li class="col-auto me-1 ms-1">
-                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="initiatorType">
+                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="initiatorType" >
                                 <option selected value="">Initiator</option>
-                                <option th:each="in:${initiator}" th:text="${in}"></option></select></li>
+                                <option th:each="in:${initiator}" th:text="${in}" th:selected="${in==findViewModel.initiatorType}"></option></select></li>
 
                         <li class="col-auto me-1 ms-1">
-                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="date" id="start" name="timeAfter" ></li>
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="date" id="start" name="timeAfter" th:value="${findViewModel.timeAfter}" ></li>
 
                         <li class="col-auto me-1 ms-1">
-                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="date" id="end" name="timeBefore" ></li>
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="date" id="end" name="timeBefore" th:value="${findViewModel.timeBefore}" ></li>
 
                         <li class="col-auto me-1 ms-1">
-                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="text" id="paramKey" name="paramKey" placeholder="Parameter key"></li>
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="text" id="paramKey" placeholder="Parameter key" name="paramKey" th:value="${findViewModel.paramKey}" ></li>
 
                         <li class="col-auto me-1 ms-1">
-                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="text" id="paramValue" name="paramValue" placeholder="Parameter value"></li>
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="text" id="paramValue" placeholder="Parameter value" name="paramValue" th:value="${findViewModel.paramValue}" ></li>
 
                         <li class="col-auto me-1 ms-1">
                             <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="submit" value="Search"></li>
