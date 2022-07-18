@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<header class="p-3 bg-dark text-white">
+    <div class="container-fluid">
+        <div class="nav">
+                <FORM class="col-auto" method="get" th:action="@{/admin/find}">
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-start mb-md-0">
+                        <li class="col-auto me-1 ms-1">
+                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="moduleName" >
+                                <option selected value="">Module</option>
+                                <option th:each="module:${modules}" th:text="${module}" th:selected="${module==findViewModel.moduleName}"></option>
+                            </select>
+                        </li>
+
+                        <li class="col-auto me-1 ms-1">
+                            <select class="form-select-sm bg-gradient text-dark border-light border-1" name="initiatorType" >
+                                <option selected value="">Initiator</option>
+                                <option th:each="in:${initiator}" th:text="${in}" th:selected="${in==findViewModel.initiatorType}"></option></select></li>
+
+                        <li class="col-auto me-1 ms-1">
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="date" id="start" name="timeAfter" th:value="${findViewModel.timeAfter}" ></li>
+
+                        <li class="col-auto me-1 ms-1">
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="date" id="end" name="timeBefore" th:value="${findViewModel.timeBefore}" ></li>
+
+                        <li class="col-auto me-1 ms-1">
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="text" id="paramKey" placeholder="Parameter key" name="paramKey" th:value="${findViewModel.paramKey}" ></li>
+
+                        <li class="col-auto me-1 ms-1">
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="text" id="paramValue" placeholder="Parameter value" name="paramValue" th:value="${findViewModel.paramValue}" ></li>
+
+                        <li class="col-auto me-1 ms-1">
+                            <input class="form-control-sm border-light border-1 bg-gradient text-dark" type="submit" value="Search"></li>
+                    </ul>
+                </FORM>
+            <div class="col text-end">
+                <a type="button" class="btn btn-sm btn-outline-danger" th:href="@{/admin/logout}">Logout</a>
+            </div>
+        </div>
+
+    </div>
+</header>
+<div>
+
+    <div style="margin: 0 auto; max-width: 200px">
+        <br>
+        <ul class="pagination" >
+            <th:block th:if="${pagination.enabled}" th:each="link : ${pagination.links}">
+                <li class="page-item" th:classappend="${link.isActive}">
+                    <a th:href="@{/admin/find(moduleName=${findViewModel.moduleName},
+                                          initiatorType=${findViewModel.initiatorType},
+                                          timeAfter=${findViewModel.timeAfter},
+                                          timeBefore=${findViewModel.timeBefore},
+                                          paramKey=${findViewModel.paramKey},
+                                          paramValue=${findViewModel.paramValue},
+                                          size=${pagination.pageSize},
+                                          page=${link.pageNumber})}"
+                       th:text="${link.pageNumber}"
+                       th:style="${link.isDisable}"
+                       class="page-link"></a>
+                </li>
+            </th:block>
+        </ul>
+        <br>
+    </div>
+        <div class="container-fluid">
+
+            <TABLE class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Report Name</th>
+                    <th>Control</th>
+                    <th>Module</th>
+                    <th>Initiator Type</th>
+                    <th>Initiator Name</th>
+                    <th>Initiator ID</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Parameters</th>
+                </tr>
+                <th:block th:each="rep: ${reports.content}">
+                    <tr>
+                        <td th:text="${rep.id}"></td>
+                        <td th:text="${rep.reportName}"></td>
+                        <td th:text="${rep.control}"></td>
+                        <td th:text="${rep.appModuleName}"></td>
+                        <td th:text="${rep.initiatorType}"></td>
+                        <td th:text="${rep.initiatorName}"></td>
+                        <td th:text="${rep.initiatorId}"></td>
+                        <td th:text="${rep.time}"></td>
+                        <td th:text="${rep.getReportStatus}"></td>
+                        <td th:text="${rep.parameters.values()}"></td>
+                    </tr>
+                </th:block>
+            </TABLE>
+        </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
